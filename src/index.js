@@ -1,18 +1,16 @@
-
 // const server = require('./server')
 const express = require("express");
 const cors = require("cors");
 const logger = require("morgan");
+const dayjs = require("dayjs");
 
 const app = express();
 app.use(cors());
-app.use(logger('dev'));
+app.use(logger("dev"));
 app.use(express.json());
 const port = process.env.PORT | 3000;
 
-
-
-const musicsList = [
+let musicsList = [
   {
     title: "Grande amore",
     artist: "Il Volo",
@@ -21,47 +19,111 @@ const musicsList = [
     title: "Eres Todo Para Mi",
     artist: "Petra Berger",
   },
+  {
+    title: "Finna Vivencita",
+    artist: "Petra Berger",
+  },
 ];
 
 class Music {
-    constructor(title, artist, status) {
-      this.title = title;
-      this.artist = artist;
-      this.status = status;
-    }
-
-    statusResp(){
-        return this.status
-    }
-  
-    save(){
-        const exists = musicsList.filter((music) => music.title === this.title)
-        if(exists.length === 0){
-            musicsList.push({
-                title: this.title,
-                artist: this.artist
-            })
-            this.status = "Musica adicionada"
-        }else{
-            this.status = "Musica já existe"
-            console.log("Musica já existe")
-        }
-        
-    }
-
-    
+  constructor(title, artist, status) {
+    this.title = title;
+    this.artist = artist;
+    this.status = status;
   }
+
+  statusResp() {
+    return this.status;
+  }
+
+  getMusics() {
+    return musicsList;
+  }
+
+  save() {
+    const exists = musicsList.filter((music) => music.title === this.title);
+    if (!exists.length) {
+      musicsList.push({
+        title: this.title,
+        artist: this.artist,
+      });
+      this.status = true;
+    } else {
+      this.status = false;
+      console.log("Musica já existe");
+    }
+  }
+}
+
+class MyMusics {
+  constructor(array) {
+    this.titles = array.map((msc) => msc.title);
+    this.artists = array.map((msc) => msc.artist);
+  }
+
+  getAllTitles() {
+    return this.titles;
+  }
+
+  getAllArtists() {
+    // return [...new Set(this.artists)];
+    return this.artists
+  }
+}
+
+
+class Artist {
+  constructor(name, musics) {
+    this.name = name;
+    this.musics = musics;
+  }
+
+  info() {
+    return {
+      name: this.name,
+      musics: this.musics[0],
+    };
+  }
+}
 
 app.get("/", (req, res) => {
   res.send(musicsList);
 });
 
-app.post('/', (req, res) => {
+// console.log(handler.getAllArtists())
+app.get("/artists", (req, res) => {
+  let artists = []
 
-    const newMusic = new Music(req.body.title, req.body.artist)
-    newMusic.save()
-    res.send(newMusic.statusResp())
-})
+  let handler = new MyMusics(musicsList);
+
+  handler.getAllArtists().map((art) => {
+
+    let newArt = new Artist(
+      art,
+      musicsList.filter((msc) => msc.artist === art)
+    );
+
+    artists.push(newArt)
+    // console.log(newArt.info());
+  });
+  res.send(artists);
+});
+app.get("/titles", (req, res) => {
+  let handler = new MyMusics(musicsList);
+
+  res.send(handler.getAllTitles());
+});
+
+app.post("/", (req, res) => {
+  const newMusic = new Music(req.body.title, req.body.artist);
+  newMusic.save();
+  res.send(musicsList) | res.send("Algo deu errado");
+});
+
+app.delete("/", (req, res) => {
+  musicsList = musicsList.filter((msc) => msc.title !== req.body.title);
+  res.send(musicsList) | res.send("Algo deu errado");
+});
 
 app.listen(port, () => {
   console.log(`Running in port ${port}`);
