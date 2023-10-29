@@ -1,5 +1,5 @@
-function server(){
-    return 'Okay'
+function server() {
+  return 'Okay';
 }
 
-export default server
+export default server;

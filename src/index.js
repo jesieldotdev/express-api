@@ -1,27 +1,27 @@
 // const server = require('./server')
-const express = require("express");
-const cors = require("cors");
-const logger = require("morgan");
-const dayjs = require("dayjs");
+const express = require('express');
+const cors = require('cors');
+const logger = require('morgan');
+const dayjs = require('dayjs');
 
 const app = express();
 app.use(cors());
-app.use(logger("dev"));
+app.use(logger('dev'));
 app.use(express.json());
 const port = process.env.PORT | 3000;
 
 let musicsList = [
   {
-    title: "Grande amore",
-    artist: "Il Volo",
+    title: 'Grande amore',
+    artist: 'Il Volo',
   },
   {
-    title: "Eres Todo Para Mi",
-    artist: "Petra Berger",
+    title: 'Eres Todo Para Mi',
+    artist: 'Petra Berger',
   },
   {
-    title: "Finna Vivencita",
-    artist: "Petra Berger",
+    title: 'Finna Vivencita',
+    artist: 'Petra Berger',
   },
 ];
 
@@ -50,7 +50,7 @@ class Music {
       this.status = true;
     } else {
       this.status = false;
-      console.log("Musica já existe");
+      console.log('Musica já existe');
     }
   }
 }
@@ -67,10 +67,9 @@ class MyMusics {
 
   getAllArtists() {
     // return [...new Set(this.artists)];
-    return this.artists
+    return this.artists;
   }
 }
-
 
 class Artist {
   constructor(name, musics) {
@@ -86,43 +85,42 @@ class Artist {
   }
 }
 
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.send(musicsList);
 });
 
 // console.log(handler.getAllArtists())
-app.get("/artists", (req, res) => {
-  let artists = []
+app.get('/artists', (req, res) => {
+  const artists = [];
 
-  let handler = new MyMusics(musicsList);
+  const handler = new MyMusics(musicsList);
 
   handler.getAllArtists().map((art) => {
-
-    let newArt = new Artist(
+    const newArt = new Artist(
       art,
-      musicsList.filter((msc) => msc.artist === art)
+      musicsList.filter((msc) => msc.artist === art),
     );
 
-    artists.push(newArt)
+    artists.push(newArt);
     // console.log(newArt.info());
   });
   res.send(artists);
 });
-app.get("/titles", (req, res) => {
-  let handler = new MyMusics(musicsList);
+app.get('/titles', (req, res) => {
+  const handler = new MyMusics(musicsList);
 
   res.send(handler.getAllTitles());
 });
 
-app.post("/", (req, res) => {
+app.post('/', (req, res) => {
   const newMusic = new Music(req.body.title, req.body.artist);
   newMusic.save();
-  res.send(musicsList) | res.send("Algo deu errado");
+  res.send(musicsList) | res.send('Algo deu errado');
 });
 
-app.delete("/", (req, res) => {
+app.delete('/', (req, res) => {
   musicsList = musicsList.filter((msc) => msc.title !== req.body.title);
-  res.send(musicsList) | res.send("Algo deu errado");
+  res.send(musicsList) | res.send('Algo deu errado');
 });
 
 app.listen(port, () => {
