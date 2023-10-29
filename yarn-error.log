@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js dev
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js start
 
 PATH: 
   C:\Users\jesiel.silva_pigz\AppData\Local\oh-my-posh;C:\Python311\Scripts\;C:\Python311\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\Amazon\AWSCLIV2\;C:\Users\USUARIO\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\nodejs\;C:\Program Files\bottom\bin\;C:\Users\jesiel.silva_pigz\.console-ninja\.bin;C:\Users\jesiel.silva_pigz\AppData\Local\Microsoft\WindowsApps;C:\Users\jesiel.silva_pigz\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\jesiel.silva_pigz\AppData\Local\Programs\Git\cmd;C:\Users\jesiel.silva_pigz\AppData\Local\Yarn\bin;C:\Users\jesiel.silva_pigz\AppData\Roaming\npm;C:\Program Files\Neovim\bin;C:\Users\jesiel.silva_pigz\AppData\Local\Microsoft\WinGet\Packages\BurntSushi.ripgrep.MSVC_Microsoft.Winget.Source_8wekyb3d8bbwe\ripgrep-13.0.0-x86_64-pc-windows-msvc;C:\Users\jesiel.silva_pigz\AppData\Local\Microsoft\WinGet\Packages\JesseDuffield.lazygit_Microsoft.Winget.Source_8wekyb3d8bbwe;C:\Users\jesiel.silva_pigz\AppData\Local\Microsoft\WinGet\Packages\dundee.gdu_Microsoft.Winget.Source_8wekyb3d8bbwe;;C:\Users\jesiel.silva_pigz\AppData\Local\Programs\oh-my-posh\bin
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  SyntaxError: C:\Users\jesiel.silva_pigz\Documents\Pessoal\api-express-mongo\package.json: Unexpected token } in JSON at position 185
+  SyntaxError: C:\Users\jesiel.silva_pigz\Documents\Pessoal\express-api\package.json: Unexpected token } in JSON at position 207
       at JSON.parse (<anonymous>)
       at C:\Program Files (x86)\Yarn\lib\cli.js:1629:59
       at Generator.next (<anonymous>)
@@ -27,6 +27,7 @@ npm manifest:
     "version": "1.0.0",
     "description": "",
     "main": "src/index.js",
+    "type": "commonjs",
     "scripts": {
       "dev": "node src/index.js",
       "start": "node src/index.js",
