@@ -2,7 +2,7 @@
   "name": "api-express-mongo",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "node ./src/index.js",
