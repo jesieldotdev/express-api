@@ -1,12 +1,12 @@
 // const server = require('./server')
-const express = require('express');
-const cors = require('cors');
-const logger = require('morgan');
-const dayjs = require('dayjs');
+import express from 'express'
+import cors from 'cors'
+import morgan from 'morgan'
+import dayjs from 'dayjs';
 
 const app = express();
 app.use(cors());
-app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(express.json());
 const port = process.env.PORT | 3000;
 
